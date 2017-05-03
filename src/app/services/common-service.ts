@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 export class CommonService {
 	constructor() { }
 
-    public static baseURl = 'http://efektotest.azurewebsites.net/tables/';
+    public static baseURl = 'https://efektotest.azurewebsites.net/tables/';
     public static postfix = '?ZUMO-API-VERSION=2.0.0';
 
 
