@@ -1,5 +1,5 @@
-https://efektoadmin.github.io/EfektoManagement/src/
+efektoadmin.github.io/EfektoManagement/src/
 
 @        A        192.30.252.153
 @        A        192.30.252.154
-www      CNAME    efektoadmin.github.io
+www      CNAME    efektoadmin.github.io/EfektoManagement/src/
