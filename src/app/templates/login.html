@@ -1,0 +1,52 @@
+<div class="col-md-12" style="text-align: center;">
+    <img src="app/images/logo.svg" style="height: 100px; margin: 100px 0 50px 0;">
+
+    <div class="loginError" *ngIf='showNotification'>
+        <label [innerHtml]="notificationMessage"></label>
+    </div>
+
+    <div style="background-color:#0e7c3e; width: 400px; padding: 10px; margin: 0 auto 0 auto; overflow: hidden; border-radius: 5px;">
+        
+        <h1 style="color: #fff; font-size: 1.4em; margin:0 0 15px 0;">Management Portal</h1>
+
+        <div class="form-group">
+            <input type="text" class="form-control" id="usr" [(ngModel)]='user.username' placeholder="Username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="pwd" [(ngModel)]='user.password' placeholder="Password">
+        </div>
+        <div class="form-group">
+            <button type="button" class="form-control btn btn-default" style="width: 100px; float: right;" (click)='login(user.username,user.password)'>Login</button>
+        </div>
+    </div>
+</div>
+
+
+
+<div *ngIf='showOverlay' style="background-color:black;
+	opacity: 0.5;
+	width: 100%; 
+	height: 100%; 
+	position: fixed; 
+	top: 0px; 
+	left: 0px; 
+	z-index: 50" (click)='cancel()'>
+
+    <div class="loader"></div>
+
+</div>
+
+
+<!--
+<div *ngIf='showNotification' style="
+	border-radius: 10px;
+	min-width: 30%; 
+	margin: 0 35% 0 35%;
+    padding: 10px;
+	position: fixed; 
+	background-color: #fff;
+	z-index: 100">
+    
+    <span style="padding:10px" class="form-control btn btn-default" (click)='closeNotification()'>Close</span>
+</div>
+-->

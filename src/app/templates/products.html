@@ -1,0 +1,12 @@
+<!-- Add button -->
+<div class="addButton">
+	<p (click)='showProductModal("add")'>+</p>
+</div>
+
+<productmodal *ngIf='showModal' [product]="product" [closeModalFunction]="closeModal" [updateProductListFunction]="updateProductList" [addProduct]="addProduct"></productmodal>
+
+<div class="contentContainer">
+	<div *ngFor="let product of products ">
+		<productedit [product]="product" [updateProductFunction]="updateProduct" [removeProductFromListFunction]="removeProductFromList"></productedit>
+	</div>
+</div>

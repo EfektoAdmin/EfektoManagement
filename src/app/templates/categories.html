@@ -1,0 +1,12 @@
+<!-- Add button -->
+<div class="addButton">
+	<p (click)='showCategoryModal("add")'>+</p>
+</div>
+
+<categorymodal *ngIf='showModal' [category]="category" [closeModalFunction]="closeModal" [updateCategoryListFunction]="updateCategoryList" [addCategory]="addCategory"></categorymodal>
+
+<div class="contentContainer">
+	<div *ngFor="let category of categories">
+		<categoryedit [category]="category" [callBackFunction]="updateCategory" [removeCategoryFromListFunction]="removeCategoryFromList"></categoryedit>
+	</div>
+</div>

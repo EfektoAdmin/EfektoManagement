@@ -1,0 +1,44 @@
+<div *ngIf='saving'> Saving... </div>
+<div *ngIf='!saving'>
+
+	<div class="col-md-12 listItemContainer">
+
+		<!-- Has image start -->
+		<div class="col-md-1" style="padding-left: 0;">
+			<img src='{{product.Image}}' style='width: 100px; height: 100px; border-radius:100px; margin: 5px;' *ngIf="product.Image"/>
+			<img src='app/images/noImage.png' *ngIf="!product.Image" style='width: 100px; height: 100px;' />
+		</div>
+		<!-- Has image end -->
+
+		<div class="col-md-3">
+			<p class="listItemHeading">{{product.name}}</p>
+			<p class="listItemSubHeading"><span class="label">Category:</span>{{product.Category}}</p>
+		</div>
+
+		<div class="col-md-5">			
+			<p class="listItemDescription">{{product.Description}}</p>
+		</div>
+
+		<div class="listBtn" (click)='deleteProduct(product)'>
+			<i class="fa fa-trash" aria-hidden="true"></i>
+		</div>	
+		<div class="listBtn" (click)='updateProductFunction(product)'>
+			<i class="fa fa-pencil" aria-hidden="true"></i>
+		</div>
+	
+
+	</div>
+
+</div>
+
+	<!--
+	<td><input  [(ngModel)]='product.name' placeholder='Name' class="form-control"/> </td>
+	<td><input  [(ngModel)]='product.Category' placeholder='Category' class="form-control"/> </td>
+	<td><input  [(ngModel)]='product.Image' placeholder='image' class="form-control"/> </td>
+	<td><input  [(ngModel)]='product.Order' placeholder='order' class="form-control"/> </td>
+	<td><textarea  [(ngModel)]='product.Description' placeholder='description' rows='5' class="form-control"></textarea> </td>
+	<td><textarea [(ngModel)]='product.tags' rows='5' class="form-control" ></textarea> </td>
+	<td><button (click)='updateProduct(product)' class="btn btn-default btn-xm">Update</button> </td>
+	<td><button (click)='duplicateProduct(product)'   class="btn btn-default btn-xm">Duplicate</button> </td>
+	<td><button (click)='deleteProduct(product)'  class="btn btn-default btn-xm">Delete</button> </td>
+	-->

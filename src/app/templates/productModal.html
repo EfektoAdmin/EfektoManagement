@@ -1,0 +1,169 @@
+<div style="background-color:black;
+	opacity: 0.5;
+	width: 100%; 
+	height: 100%; 
+	position: fixed; 
+	top: 0px; 
+	left: 0px; 
+	z-index: 50" (click)='cancel()'>
+</div>
+<div style="
+	border-radius: 10px;
+	min-width: 50%; 
+	margin: 0 25% 0 25%;
+	position: fixed; 
+	background-color: #fff;
+	z-index: 100">
+
+	<div class="modalHeader">
+		<label *ngIf='addProduct'>Add Product</label>
+		<label *ngIf='editProduct'>Edit Product</label>
+	</div>
+
+	<div class="modalContent">
+		<!-- Name -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Name</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='product.name' />
+			</div>
+		</div>
+
+		<!-- Description -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Description</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='product.Description' />
+			</div>
+		</div>
+
+		<!-- Category -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Category</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='product.Category' />
+			</div>
+		</div>
+
+		<!-- Image -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Image</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='product.Image' />
+			</div>
+		</div>
+
+		<!-- Tags -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Tags</label>
+			<div class="col-md-8">
+				<!--<textarea class="form-control" [(ngModel)]='product.tags' rows='3' placeholder='Tags'></textarea>-->
+				<input type="text" placeholder="name" style="border: solid 1px lightgrey; border-radius: 3px;" [(ngModel)]='tagItemName'/>
+				<input type="text" placeholder="value" style="border: solid 1px lightgrey; border-radius: 3px;" [(ngModel)]='tagItemValue'/>
+				<span class="fa fa-plus-square" (click)='addTagItem()'></span>
+				<ul class="list-group">
+					<li *ngFor="let tagLookup of tagArray" class="list-group-item" style="padding:0px 0px 0px 10px">
+						{{tagLookup.name + ' : ' + tagLookup.value}}
+						<span class="fa fa-minus-square" (click)='removeTagItem(tagLookup)'></span>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+
+		<!-- Features -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Features</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='product.Features' />
+			</div>
+		</div>
+
+		<!-- ActNo -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Act No</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='product.ActNo' />
+			</div>
+		</div>
+
+		<!-- Warnings -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Warnings</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='product.Warnings' />
+			</div>
+		</div>
+
+		<!-- Precautions -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Precautions</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='product.Precautions' />
+			</div>
+		</div>
+
+		<!-- Order -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Order</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='product.Order' />
+			</div>
+		</div>
+
+	</div>
+
+	<div class="modalFooter">
+		<button class="btnSave" (click)='saveProduct(product)'>Save</button>
+		<button class="btnCancel" (click)='cancel()'>Cancel</button>
+	</div>
+
+	<div *ngIf='confirmFlag' style="background-color:black;
+	opacity: 0.5;
+	width: 100%; 
+	height: 100%; 
+	position: fixed; 
+	top: 0px; 
+	left: 0px; 
+	z-index: 50" (click)='cancel()'>
+	</div>
+	<div *ngIf="confirmFlag" style="width:30%; height: 125px; 
+	position: absolute; 
+	top: 50px; 
+	margin-left:35%; 
+	margin-right:35%; 
+	background-color: white; 
+	z-index: 100;
+	border-radius: 5px;">
+		<div style="margin-left: 25%; margin-right: 25%; margin-top:25px; margin-bottom:25px;">Are you sure?</div>
+		<div style="margin-left: 25%; margin-right: 25%;">
+			<button class="btn btn-default" (click)='confirm("yes")'>Yes</button>
+			<button class="btn btn-default" (click)='confirm("no")'>No</button>
+		</div>
+	</div>
+</div>
+
+
+<div *ngIf='showNotification' style="background-color:black;
+	opacity: 0.5;
+	width: 100%; 
+	height: 100%; 
+	position: fixed; 
+	top: 0px; 
+	left: 0px; 
+	z-index: 105" (click)='cancel()'>
+</div>
+<div *ngIf='showNotification' style="
+	border-radius: 10px;
+	min-width: 300px; 
+	margin: 0 35% 0 35%;
+    padding: 10px;
+	position: fixed; 
+	background-color: #fff;
+	z-index: 110;">
+	<h2><span style="margin: 5px;margin-left:25px;" class="label label-warning">Notification:</span></h2>
+	<div>
+		<label style="margin:10px;margin-left:25px; color:grey" [innerHtml]="notificationMessage"></label>
+		<span style="padding:10px" class="form-control btn btn-default" (click)='closeNotification()'>Close</span>
+	</div>
+</div>

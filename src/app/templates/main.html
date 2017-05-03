@@ -1,0 +1,42 @@
+<nav class="navbar navbar-inverse" *ngIf='!showLogin'>
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<img src="app/images/logo.svg" style="height: 50px; margin-right: 50px; padding: 5px;">
+		</div>
+		<ul class="nav navbar-nav" *ngIf='!showLogin'>
+			<li [ngClass]="{'active': showCategories}" class="active"><a href="#" (click)='showComponent("categories")'>Categories</a></li>
+			<li [ngClass]="{'active': showProducts}"><a href="#" (click)='showComponent("products")'>Products</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right" *ngIf='!showLogin'>
+			<li><a href="#" (click)='logout()'><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+		</ul>
+	</div>
+</nav>
+
+<div class="headingContianer" *ngIf='!showLogin'>
+	<h1 *ngIf='showCategories'>Available Categories</h1>
+	<h1 *ngIf='showProducts'>Available Products</h1>
+</div>
+
+<!--
+<div><div class="row">
+	<div class="col-md-1">
+		<input value='Categories' class="btn btn-default " (click)='showComponent("categories")' type='button'/> 
+	</div >	
+	<div  class="col-md-1">
+		<input value='Products' class="btn btn-default" (click)='showComponent("products")' type='button'/> 
+	</div>
+</div>
+-->
+
+<div *ngIf='showLogin'>
+	<login [loginSuccess]='loginSuccess'></login>
+</div>
+<div *ngIf='!showLogin'>
+	<div *ngIf='showCategories'>
+		<category-list></category-list>
+	</div>
+	<div *ngIf='showProducts'>
+		<product-list></product-list>
+	</div>
+</div>

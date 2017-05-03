@@ -1,0 +1,147 @@
+<div style="background-color:black;
+	opacity: 0.5;
+	width: 100%; 
+	height: 100%; 
+	position: fixed; 
+	top: 0px; 
+	left: 0px; 
+	z-index: 50" (click)='cancel()'>
+</div>
+
+<div style="
+	border-radius: 10px;
+	min-width: 50%; 
+	margin: 0 25% 0 25%;
+	position: fixed; 
+	background-color: #fff;
+	z-index: 100">
+
+	<div class="modalHeader">
+		<label *ngIf='addCategory'>Add Category</label>
+		<label *ngIf='editCategory'>Edit Category</label>
+	</div>
+	<div class="modalContent">
+		<!-- Name -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Name</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='category.name' />
+			</div>
+		</div>
+
+		<!-- Category type -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Category Type</label>
+			<div class="col-md-8">
+				<select class="form-control" [(ngModel)]='category.categorytype'>
+					<option selected="selected">Select...</option> 
+					<option value='Products' >Products</option> 
+					<option value='Pests'>Pests</option> 
+				</select>
+			</div>
+		</div>
+
+		<!-- Parent category -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Parent Category</label>
+			<div class="col-md-8">
+				<select class="form-control" [(ngModel)]='category.parent'>
+					<option selected="selected">Select...</option> 
+					<option *ngFor="let categoryLookup of categories" [ngValue]="categoryLookup.id">{{categoryLookup.name}}</option> 					
+				</select>
+			</div>
+		</div>
+
+		<!-- Has products -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Has Products</label>
+			<div class="col-md-8">
+				<select class="form-control" [(ngModel)]='category.hasproducts'>
+					<option value='1'>Yes</option> 
+					<option value='0'>No</option> 
+				</select>
+			</div>
+		</div>
+
+		<!-- Image url-->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Image URL</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='category.image' />
+			</div>
+		</div>
+
+		<!-- Order -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Order</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='category.Order' />
+			</div>
+		</div>
+
+		<!-- Description -->
+		<div class="form-group row">
+			<label class="col-md-2 control-label">Description</label>
+			<div class="col-md-8">
+				<input class="form-control" [(ngModel)]='category.description' />
+			</div>
+		</div>
+
+	</div>
+	<div class="modalFooter">
+		<button class="btnSave" (click)='saveCategory(category)'>Save</button>
+		<button class="btnCancel" (click)='cancel()'>Cancel</button>
+	</div>
+
+	<!-- Confirmation dialog -->
+	<div *ngIf='confirmFlag' style="background-color:black;
+	opacity: 0.5;
+	width: 100%; 
+	height: 100%; 
+	position: fixed; 
+	top: 0px; 
+	left: 0px; 
+	z-index: 50" (click)='cancel()'>
+	</div>
+	<div *ngIf="confirmFlag" style="width:30%; height: 125px; 
+	position: absolute; 
+	top: 50px; 
+	margin-left:35%; 
+	margin-right:35%; 
+	background-color: white; 
+	z-index: 100;
+	border-radius: 5px;">
+		<div style="margin-left: 25%; margin-right: 25%; margin-top:25px; margin-bottom:25px;">Are you sure?</div>
+		<div style="margin-left: 25%; margin-right: 25%;">
+			<button class="btn btn-default" (click)='confirm("yes")'>Yes</button>
+			<button class="btn btn-default" (click)='confirm("no")'>No</button>
+		</div>
+	</div>
+
+
+
+</div>
+
+<div *ngIf='showNotification' style="background-color:black;
+	opacity: 0.5;
+	width: 100%; 
+	height: 100%; 
+	position: fixed; 
+	top: 0px; 
+	left: 0px; 
+	z-index: 105" (click)='cancel()'>
+</div>
+<div *ngIf='showNotification' style="
+	border-radius: 10px;
+	min-width: 300px; 
+	margin: 0 35% 0 35%;
+    padding: 10px;
+	position: fixed; 
+	background-color: #fff;
+	z-index: 110;">
+	<h2><span style="margin: 5px;margin-left:25px;" class="label label-warning">Notification:</span></h2>
+	<div>
+		<label style="margin:10px;margin-left:25px; color:grey" [innerHtml]="notificationMessage"></label>
+		<span style="padding:10px" class="form-control btn btn-default" (click)='closeNotification()'>Close</span>
+	</div>
+</div>
