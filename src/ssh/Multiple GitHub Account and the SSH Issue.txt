@@ -1,0 +1,20 @@
+
+
+Multiple GitHub Account and the SSH Issue:
+
+1. Generate a new SSH key:
+   https://help.github.com/articles/connecting-to-github-with-ssh/
+   
+2. Adding a new SSH key:
+   https://help.github.com/articles/connecting-to-github-with-ssh/
+   
+2.1 Add the key to your project and not the account:
+   - Go to your github account/project;
+   - Click project "settings" on the right;
+   - Select "Deploy Keys" on the left;
+   - Add the key;
+
+3. git init
+4. git add .
+5. git remote set-url origin ssh://git@github.com/EfektoAdmin/EfektoManagement.git
+6. mark as "write" if you are to push changes;
