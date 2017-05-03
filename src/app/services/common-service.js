@@ -12,7 +12,7 @@ var core_1 = require('@angular/core');
 var CommonService = (function () {
     function CommonService() {
     }
-    CommonService.baseURl = 'http://efektotest.azurewebsites.net/tables/';
+    CommonService.baseURl = 'https://efektotest.azurewebsites.net/tables/';
     CommonService.postfix = '?ZUMO-API-VERSION=2.0.0';
     CommonService = __decorate([
         core_1.Injectable(), 
