@@ -33,10 +33,10 @@ export class LoginComponent implements OnInit {
         this.notificationMessage = '';
         
         if (username == null || username.trim() == '')
-            this.notificationMessage = 'Username is required. ';
+            this.notificationMessage = '<b>Username</b> is required. ';
 
         if (password == null || password.trim() == '')
-            this.notificationMessage += 'Password is required.';
+            this.notificationMessage += '<b>Password</b> is required.';
 
         if (this.notificationMessage != null && this.notificationMessage.trim() != '') {
             this.openNotification(null);

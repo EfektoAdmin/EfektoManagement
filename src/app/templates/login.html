@@ -2,7 +2,7 @@
     <img src="app/images/logo.svg" style="height: 100px; margin: 100px 0 50px 0;">
 
     <div class="loginError" *ngIf='showNotification'>
-        <label [innerHtml]="notificationMessage"></label>
+        <span [innerHtml]="notificationMessage"></span>
     </div>
 
     <div style="background-color:#0e7c3e; width: 400px; padding: 10px; margin: 0 auto 0 auto; overflow: hidden; border-radius: 5px;">
@@ -21,8 +21,6 @@
     </div>
 </div>
 
-
-
 <div *ngIf='showOverlay' style="background-color:black;
 	opacity: 0.5;
 	width: 100%; 
@@ -35,18 +33,3 @@
     <div class="loader"></div>
 
 </div>
-
-
-<!--
-<div *ngIf='showNotification' style="
-	border-radius: 10px;
-	min-width: 30%; 
-	margin: 0 35% 0 35%;
-    padding: 10px;
-	position: fixed; 
-	background-color: #fff;
-	z-index: 100">
-    
-    <span style="padding:10px" class="form-control btn btn-default" (click)='closeNotification()'>Close</span>
-</div>
--->

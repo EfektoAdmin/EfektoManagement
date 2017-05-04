@@ -187,6 +187,25 @@
     border-radius: 5px;
 }
 
+.formError {
+    border: 1px solid #da1515;
+    background-color: rgba(218, 21, 21, 0.1);
+    color: #da1515;
+    padding: 5px;
+    margin: 0 auto 15px auto;
+    border-radius: 5px;
+}
+
+.btnTagAdd {
+    color: #17823f;
+    margin-top: 3px;
+
+    &:hover{
+        color: #539f6f; 
+        cursor: pointer;      
+    }
+}
+
 .loader,
 .loader:after {
   border-radius: 50%;
@@ -228,3 +247,38 @@
     transform: rotate(360deg);
   }
 }
+
+.tagListContainer {
+        background-color: white;
+        border: 1px solid rgba(204,204,204,1.0);
+        height: 280px;
+        border-radius: 4px;
+        margin-top: 10px;
+        overflow: scroll;
+        overflow-x: hidden;
+
+        .tagListItem {
+            background-color: rgba(235,241,237,1.0);
+            border: 1px solid #17823f;
+            margin: 5px;
+            height: 30px;
+            padding: 4px 5px 0 5px;
+            border-radius: 4px;
+
+            p {
+                float:left;
+            }
+
+            i {
+                float:right;
+                margin-top: 2px;
+                font-size: 1.2em;
+                color: #17823f;
+
+                &:hover {
+                    color:#539f6f; 
+                    cursor: pointer;
+                }
+            }
+        }
+    }

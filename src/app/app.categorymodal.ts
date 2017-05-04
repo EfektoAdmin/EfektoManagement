@@ -126,16 +126,16 @@ export class CategoryModalComponent implements OnInit {
         }
         else {
             if (category.name == null || category.name.trim() == "")
-                message += "Category Name is required.<br />";
+                message += "<b>Name</b> is required. ";
 
             if (category.categorytype == null || category.categorytype.trim() == "")
-                message += "Category Type is required.<br />";
+                message += "<b>Category</b> Type is required. ";
 
-            if (category.image == null || category.image.trim() == "")
-                message += "Category Image Url is required.<br />";
+            // if (category.image == null || category.image.trim() == "")
+            //     message += "<b>Image Url</b> is required. ";
 
             if (category.description == null || category.description.trim() == "")
-                message += "Category Description is required.<br />";
+                message += "<b>Description</b> is required. ";
         }
 
         if (message == '')

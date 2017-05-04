@@ -46,17 +46,17 @@ var ProductModalComponent = (function () {
     ProductModalComponent.prototype.addTagItem = function () {
         var _this = this;
         if (this.tagItemName == null || this.tagItemName.trim() == '') {
-            this.openNotification("The tag name is required.");
+            this.openNotification("The tag <b>name</b> is required.");
             return;
         }
         if (this.tagItemValue == null || this.tagItemValue.trim() == '') {
-            this.openNotification("The tag value is required.");
+            this.openNotification("The tag <b>value</b> is required.");
             return;
         }
         var isUsedTagname = false;
         this.tagArray.forEach(function (element) {
             if (element.name == _this.tagItemName) {
-                _this.openNotification("The tag name has already been used.");
+                _this.openNotification("The tag <b>name</b> has already been used.");
                 isUsedTagname = true;
                 return;
             }
@@ -133,25 +133,11 @@ var ProductModalComponent = (function () {
         }
         else {
             if (product.name == null || product.name.trim() == "")
-                message += "Product Name is required.<br />";
+                message += "<b>Name</b> is required. ";
             if (product.Description == null || product.Description.trim() == "")
-                message += "Product Description is required.<br />";
+                message += "<b>Description</b> is required. ";
             if (product.Category == null || product.Category.trim() == "")
-                message += "Product Category is required.<br />";
-            if (product.Image == null || product.Image.trim() == "")
-                message += "Product Image is required.<br />";
-            if (product.tags == null || product.tags.trim() == "")
-                message += "Product tags is required.<br />";
-            if (product.Features == null || product.Features.trim() == "")
-                message += "Product Features is required.<br />";
-            if (product.ActNo == null || product.ActNo.trim() == "")
-                message += "Product ActNo is required.<br />";
-            if (product.Warnings == null || product.Warnings.trim() == "")
-                message += "Product Warnings is required.<br />";
-            if (product.Precautions == null || product.Precautions.trim() == "")
-                message += "Product Precautions is required.<br />";
-            if (product.Order == null || product.Order.trim() == "")
-                message += "Product Order is required.<br />";
+                message += "<b>Category</b> is required. ";
         }
         if (message == '')
             return true;

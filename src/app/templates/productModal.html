@@ -9,8 +9,8 @@
 </div>
 <div style="
 	border-radius: 10px;
-	min-width: 50%; 
-	margin: 0 25% 0 25%;
+	min-width: 75%; 
+	margin: 0 15% 0 15%;
 	position: fixed; 
 	background-color: #fff;
 	z-index: 100">
@@ -21,93 +21,106 @@
 	</div>
 
 	<div class="modalContent">
-		<!-- Name -->
-		<div class="form-group row">
-			<label class="col-md-2 control-label">Name</label>
-			<div class="col-md-8">
-				<input class="form-control" [(ngModel)]='product.name' />
+
+		<!-- Error message -->
+		<div class="formError" *ngIf='showNotification'>
+        	<label [innerHtml]="notificationMessage"></label>
+    	</div>
+
+		<div class="col-md-6">
+			<!-- Name -->
+			<div class="form-group row">
+				<label class="col-md-2 control-label">Name</label>
+				<div class="col-md-8">
+					<input class="form-control" [(ngModel)]='product.name' />
+				</div>
 			</div>
+
+			<!-- Description -->
+			<div class="form-group row">
+				<label class="col-md-2 control-label">Description</label>
+				<div class="col-md-8">
+					<input class="form-control" [(ngModel)]='product.Description' />
+				</div>
+			</div>
+
+			<!-- Category -->
+			<div class="form-group row">
+				<label class="col-md-2 control-label">Category</label>
+				<div class="col-md-8">
+					<input class="form-control" [(ngModel)]='product.Category' />
+				</div>
+			</div>
+
+			<!-- Image -->
+			<div class="form-group row">
+				<label class="col-md-2 control-label">Image</label>
+				<div class="col-md-8">
+					<input class="form-control" [(ngModel)]='product.Image' />
+				</div>
+			</div>
+
+			<!-- Features -->
+			<div class="form-group row">
+				<label class="col-md-2 control-label">Features</label>
+				<div class="col-md-8">
+					<input class="form-control" [(ngModel)]='product.Features' />
+				</div>
+			</div>
+
+			<!-- ActNo -->
+			<div class="form-group row">
+				<label class="col-md-2 control-label">Act No</label>
+				<div class="col-md-8">
+					<input class="form-control" [(ngModel)]='product.ActNo' />
+				</div>
+			</div>
+
+			<!-- Warnings -->
+			<div class="form-group row">
+				<label class="col-md-2 control-label">Warnings</label>
+				<div class="col-md-8">
+					<input class="form-control" [(ngModel)]='product.Warnings' />
+				</div>
+			</div>
+
+			<!-- Precautions -->
+			<div class="form-group row">
+				<label class="col-md-2 control-label">Precautions</label>
+				<div class="col-md-8">
+					<input class="form-control" [(ngModel)]='product.Precautions' />
+				</div>
+			</div>
+
 		</div>
 
-		<!-- Description -->
-		<div class="form-group row">
-			<label class="col-md-2 control-label">Description</label>
-			<div class="col-md-8">
-				<input class="form-control" [(ngModel)]='product.Description' />
+		<div class="col-md-6">
+
+			<!-- Order -->
+			<div class="form-group row">
+				<label class="col-md-2 control-label">Order</label>
+				<div class="col-md-8">
+					<input class="form-control" [(ngModel)]='product.Order' />
+				</div>
 			</div>
-		</div>
 
-		<!-- Category -->
-		<div class="form-group row">
-			<label class="col-md-2 control-label">Category</label>
-			<div class="col-md-8">
-				<input class="form-control" [(ngModel)]='product.Category' />
-			</div>
-		</div>
+			<!-- Tags -->
+			<div class="form-group row">
+				<label class="col-md-2 control-label">Tags</label>
+				<div class="col-md-10">
+					<!--<textarea class="form-control" [(ngModel)]='product.tags' rows='3' placeholder='Tags'></textarea>-->
+					<input type="text" class="form-control" style="width: 40%; display: inline-block;" placeholder="Name"  [(ngModel)]='tagItemName'/>
+					<input type="text" class="form-control" style="width: 40%; display: inline-block;" placeholder="Value" [(ngModel)]='tagItemValue'/>
+					<i class="fa fa-plus-square btnTagAdd" style="font-size: 1.7em;" (click)='addTagItem()'></i>
+					
+					<div class="tagListContainer">
+						<div *ngFor="let tagLookup of tagArray" class="tagListItem">
+							{{tagLookup.name + ' : ' + tagLookup.value}}
+							<i class="fa fa-trash" (click)='removeTagItem(tagLookup)'></i>
+						</div>
+					</div>
 
-		<!-- Image -->
-		<div class="form-group row">
-			<label class="col-md-2 control-label">Image</label>
-			<div class="col-md-8">
-				<input class="form-control" [(ngModel)]='product.Image' />
-			</div>
-		</div>
-
-		<!-- Tags -->
-		<div class="form-group row">
-			<label class="col-md-2 control-label">Tags</label>
-			<div class="col-md-8">
-				<!--<textarea class="form-control" [(ngModel)]='product.tags' rows='3' placeholder='Tags'></textarea>-->
-				<input type="text" placeholder="name" style="border: solid 1px lightgrey; border-radius: 3px;" [(ngModel)]='tagItemName'/>
-				<input type="text" placeholder="value" style="border: solid 1px lightgrey; border-radius: 3px;" [(ngModel)]='tagItemValue'/>
-				<span class="fa fa-plus-square" (click)='addTagItem()'></span>
-				<ul class="list-group">
-					<li *ngFor="let tagLookup of tagArray" class="list-group-item" style="padding:0px 0px 0px 10px">
-						{{tagLookup.name + ' : ' + tagLookup.value}}
-						<span class="fa fa-minus-square" (click)='removeTagItem(tagLookup)'></span>
-					</li>
-				</ul>
-
-			</div>
-		</div>
-
-		<!-- Features -->
-		<div class="form-group row">
-			<label class="col-md-2 control-label">Features</label>
-			<div class="col-md-8">
-				<input class="form-control" [(ngModel)]='product.Features' />
-			</div>
-		</div>
-
-		<!-- ActNo -->
-		<div class="form-group row">
-			<label class="col-md-2 control-label">Act No</label>
-			<div class="col-md-8">
-				<input class="form-control" [(ngModel)]='product.ActNo' />
-			</div>
-		</div>
-
-		<!-- Warnings -->
-		<div class="form-group row">
-			<label class="col-md-2 control-label">Warnings</label>
-			<div class="col-md-8">
-				<input class="form-control" [(ngModel)]='product.Warnings' />
-			</div>
-		</div>
-
-		<!-- Precautions -->
-		<div class="form-group row">
-			<label class="col-md-2 control-label">Precautions</label>
-			<div class="col-md-8">
-				<input class="form-control" [(ngModel)]='product.Precautions' />
-			</div>
-		</div>
-
-		<!-- Order -->
-		<div class="form-group row">
-			<label class="col-md-2 control-label">Order</label>
-			<div class="col-md-8">
-				<input class="form-control" [(ngModel)]='product.Order' />
+				</div>
 			</div>
 		</div>
 
@@ -119,22 +132,22 @@
 	</div>
 
 	<div *ngIf='confirmFlag' style="background-color:black;
-	opacity: 0.5;
-	width: 100%; 
-	height: 100%; 
-	position: fixed; 
-	top: 0px; 
-	left: 0px; 
-	z-index: 50" (click)='cancel()'>
+		opacity: 0.5;
+		width: 100%; 
+		height: 100%; 
+		position: fixed; 
+		top: 0px; 
+		left: 0px; 
+		z-index: 50" (click)='cancel()'>
 	</div>
 	<div *ngIf="confirmFlag" style="width:30%; height: 125px; 
-	position: absolute; 
-	top: 50px; 
-	margin-left:35%; 
-	margin-right:35%; 
-	background-color: white; 
-	z-index: 100;
-	border-radius: 5px;">
+		position: absolute; 
+		top: 50px; 
+		margin-left:35%; 
+		margin-right:35%; 
+		background-color: white; 
+		z-index: 100;
+		border-radius: 5px;">
 		<div style="margin-left: 25%; margin-right: 25%; margin-top:25px; margin-bottom:25px;">Are you sure?</div>
 		<div style="margin-left: 25%; margin-right: 25%;">
 			<button class="btn btn-default" (click)='confirm("yes")'>Yes</button>
@@ -143,7 +156,7 @@
 	</div>
 </div>
 
-
+<!--
 <div *ngIf='showNotification' style="background-color:black;
 	opacity: 0.5;
 	width: 100%; 
@@ -167,3 +180,4 @@
 		<span style="padding:10px" class="form-control btn btn-default" (click)='closeNotification()'>Close</span>
 	</div>
 </div>
+-->
