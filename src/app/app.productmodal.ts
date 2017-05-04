@@ -3,12 +3,14 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { Product } from './product';
 import { ProductService } from './services/product-service';
+import { Category } from './category';
+import { CategoryService } from './services/category-service';
 import { Tag } from "./tags";
 
 @Component({
     selector: 'productmodal',
     templateUrl: 'app/templates/productModal.html',
-    providers: [ProductService],
+    providers: [ProductService, CategoryService],
 })
 export class ProductModalComponent implements OnInit {
     @Input() product: Product;
@@ -23,6 +25,9 @@ export class ProductModalComponent implements OnInit {
     confirmFlag = false;
     confirmProcess: string = "";
 
+    categories: Category[];
+    selectedCategory: Category;
+
     editProduct;
 
     tempProduct: Product;
@@ -30,7 +35,7 @@ export class ProductModalComponent implements OnInit {
     showNotification = false;
     notificationMessage = '';
 
-    constructor(private productService: ProductService) { }
+    constructor(private productService: ProductService, private categoryService: CategoryService) { }
 
     @HostListener('document:keydown', ['$event'])
     onkeydown(e: KeyboardEvent) {
@@ -41,6 +46,8 @@ export class ProductModalComponent implements OnInit {
 
     saving = false;
     ngOnInit() {
+        this.getCategories();
+
         this.editProduct = !this.addProduct;
 
         if (this.product.tags == null || this.product.tags.trim() == '') {
@@ -48,9 +55,29 @@ export class ProductModalComponent implements OnInit {
             return;
         }
 
-
         this.tagArray = Product.getTagsObjectArray(this.product.tags);
     }
+
+    getCategories() {
+        this.selectedCategory = new Category();
+        this.categoryService.getCategories()
+            .subscribe(
+            categories => {
+                this.categories = categories;
+                if (this.product.Category != null && this.product.Category.trim() != '') {
+                    if (this.categories != null) {
+
+                        this.categories.forEach(element => {
+                            if (element.name == this.product.Category)
+                                this.selectedCategory = element;
+                        })
+                    }
+                }
+            });
+
+
+    }
+
 
     cancel() {
         this.confirmFlag = true;
@@ -130,6 +157,11 @@ export class ProductModalComponent implements OnInit {
         //     return;
         // }
 
+        if (this.selectedCategory != null) {
+            this.product.Category = this.selectedCategory.name;
+
+        }
+
         this.tempProduct = product;
         if (this.saving == false) {
             this.confirmFlag = true;
@@ -145,6 +177,8 @@ export class ProductModalComponent implements OnInit {
                     this.updateProductListFunction(product);
                     console.log("saved");
                     this.saving = false;
+                    this.selectedCategory = new Category();
+                    this.closeModalFunction();
                 });
         }
         else {
@@ -153,14 +187,16 @@ export class ProductModalComponent implements OnInit {
                 product => {
                     console.log("saved");
                     this.saving = false;
+                    this.closeModalFunction();
                 });
         }
 
-        this.closeModalFunction();
+
     }
 
 
     validate(product: Product) {
+
         this.showNotification = false;
         var message = '';
 
@@ -177,6 +213,9 @@ export class ProductModalComponent implements OnInit {
             if (product.Category == null || product.Category.trim() == "")
                 message += "<b>Category</b> is required. ";
 
+            if (this.selectedCategory == null)
+                message += "<b>Category</b> is required. ";
+                
             /*
             if (product.Image == null || product.Image.trim() == "")
                 message += "Image is required.";

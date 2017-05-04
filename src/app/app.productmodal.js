@@ -13,10 +13,13 @@ var core_2 = require('@angular/core');
 var core_3 = require('@angular/core');
 var product_1 = require('./product');
 var product_service_1 = require('./services/product-service');
+var category_1 = require('./category');
+var category_service_1 = require('./services/category-service');
 var tags_1 = require("./tags");
 var ProductModalComponent = (function () {
-    function ProductModalComponent(productService) {
+    function ProductModalComponent(productService, categoryService) {
         this.productService = productService;
+        this.categoryService = categoryService;
         this.confirmFlag = false;
         this.confirmProcess = "";
         this.showNotification = false;
@@ -28,12 +31,29 @@ var ProductModalComponent = (function () {
             this.cancel();
     };
     ProductModalComponent.prototype.ngOnInit = function () {
+        this.getCategories();
         this.editProduct = !this.addProduct;
         if (this.product.tags == null || this.product.tags.trim() == '') {
             this.tagArray = new Array();
             return;
         }
         this.tagArray = product_1.Product.getTagsObjectArray(this.product.tags);
+    };
+    ProductModalComponent.prototype.getCategories = function () {
+        var _this = this;
+        this.selectedCategory = new category_1.Category();
+        this.categoryService.getCategories()
+            .subscribe(function (categories) {
+            _this.categories = categories;
+            if (_this.product.Category != null && _this.product.Category.trim() != '') {
+                if (_this.categories != null) {
+                    _this.categories.forEach(function (element) {
+                        if (element.name == _this.product.Category)
+                            _this.selectedCategory = element;
+                    });
+                }
+            }
+        });
     };
     ProductModalComponent.prototype.cancel = function () {
         this.confirmFlag = true;
@@ -101,6 +121,9 @@ var ProductModalComponent = (function () {
         //     this.saving = false;
         //     return;
         // }
+        if (this.selectedCategory != null) {
+            this.product.Category = this.selectedCategory.name;
+        }
         this.tempProduct = product;
         if (this.saving == false) {
             this.confirmFlag = true;
@@ -114,6 +137,8 @@ var ProductModalComponent = (function () {
                 _this.updateProductListFunction(product);
                 console.log("saved");
                 _this.saving = false;
+                _this.selectedCategory = new category_1.Category();
+                _this.closeModalFunction();
             });
         }
         else {
@@ -121,9 +146,9 @@ var ProductModalComponent = (function () {
                 .subscribe(function (product) {
                 console.log("saved");
                 _this.saving = false;
+                _this.closeModalFunction();
             });
         }
-        this.closeModalFunction();
     };
     ProductModalComponent.prototype.validate = function (product) {
         this.showNotification = false;
@@ -137,6 +162,8 @@ var ProductModalComponent = (function () {
             if (product.Description == null || product.Description.trim() == "")
                 message += "<b>Description</b> is required. ";
             if (product.Category == null || product.Category.trim() == "")
+                message += "<b>Category</b> is required. ";
+            if (this.selectedCategory == null)
                 message += "<b>Category</b> is required. ";
         }
         if (message == '')
@@ -179,9 +206,9 @@ var ProductModalComponent = (function () {
         core_3.Component({
             selector: 'productmodal',
             templateUrl: 'app/templates/productModal.html',
-            providers: [product_service_1.ProductService],
+            providers: [product_service_1.ProductService, category_service_1.CategoryService],
         }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService])
+        __metadata('design:paramtypes', [product_service_1.ProductService, category_service_1.CategoryService])
     ], ProductModalComponent);
     return ProductModalComponent;
 }());
