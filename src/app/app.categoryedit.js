@@ -10,28 +10,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var core_2 = require('@angular/core');
+var category_1 = require('./category');
 var category_service_1 = require('./services/category-service');
 var CategoryEditComponent = (function () {
     function CategoryEditComponent(categoryService) {
         this.categoryService = categoryService;
-        this.category = {};
         this.mode = 'Observable';
         this.saving = false;
+        this.confirmFlag = false;
     }
     CategoryEditComponent.prototype.ngOnInit = function () { };
     CategoryEditComponent.prototype.deleteCategory = function (category) {
+        this.confirmFlag = true;
+    };
+    CategoryEditComponent.prototype.confirm = function (yesOrNo) {
         var _this = this;
-        this.saving = true;
-        this.categoryService.deleteCategory(category)
-            .subscribe(function (responseCategory) {
-            console.log("saved");
-            _this.saving = false;
-            _this.removeCategoryFromListFunction(category);
-        });
+        if (yesOrNo == 'yes') {
+            this.saving = true;
+            this.categoryService.deleteCategory(this.category)
+                .subscribe(function (responseCategory) {
+                console.log("saved");
+                _this.saving = false;
+                _this.removeCategoryFromListFunction(_this.category);
+                _this.confirmFlag = false;
+            });
+        }
+        else if (yesOrNo == 'no') {
+            this.confirmFlag = false;
+        }
     };
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', category_1.Category)
     ], CategoryEditComponent.prototype, "category", void 0);
     __decorate([
         core_1.Input(), 

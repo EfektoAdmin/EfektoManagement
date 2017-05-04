@@ -134,8 +134,8 @@ export class CategoryModalComponent implements OnInit {
             // if (category.image == null || category.image.trim() == "")
             //     message += "<b>Image Url</b> is required. ";
 
-            if (category.description == null || category.description.trim() == "")
-                message += "<b>Description</b> is required. ";
+            // if (category.description == null || category.description.trim() == "")
+            //     message += "<b>Description</b> is required. ";
         }
 
         if (message == '')

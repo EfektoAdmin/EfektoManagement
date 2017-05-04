@@ -48,6 +48,7 @@ export class CategoriesComponent implements OnInit {
 
 	closeModal = () => {
 		this.showModal = false;
+		this.getCategories();
 	}
 
 	updateCategoryList = (category: Category) => {

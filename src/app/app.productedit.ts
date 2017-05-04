@@ -10,7 +10,7 @@ import { ProductService } from './services/product-service';
 	providers: [ProductService]
 })
 export class ProductEditComponent implements OnInit {
-	@Input() product = {};
+	@Input() product: Product;
 	@Input() public updateProductFunction: Function;
 	@Input() public removeProductFromListFunction: Function;
 
@@ -18,6 +18,8 @@ export class ProductEditComponent implements OnInit {
 	constructor(private productService: ProductService) { }
 
 	saving = false;
+	confirmFlag = false;
+
 	ngOnInit() { }
 
 	updateProduct(product: Product) {
@@ -55,18 +57,27 @@ export class ProductEditComponent implements OnInit {
 	}
 
 	deleteProduct(product: Product) {
-		this.saving = true;
-		this.productService.deleteProduct(product)
-			.subscribe(
-			reponseProduct => {
-				console.log("saved");
-				this.saving = false;
-				this.removeProductFromListFunction(product);
-			});
-
+		this.confirmFlag = true;
 	}
 
 
+
+	confirm(yesOrNo: string) {
+		if (yesOrNo == 'yes') {
+			this.saving = true;
+			this.productService.deleteProduct(this.product)
+				.subscribe(
+				reponseProduct => {
+					console.log("saved");
+					this.saving = false;
+					this.removeProductFromListFunction(this.product);
+					this.confirmFlag = false;
+				});
+		}
+		else if (yesOrNo == 'no') {
+			this.confirmFlag = false;
+		}
+	}
 
 }
 

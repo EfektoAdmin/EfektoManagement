@@ -26,6 +26,7 @@ var ProductsComponent = (function () {
         this.product = {};
         this.closeModal = function () {
             _this.showModal = false;
+            _this.getProducts();
         };
         this.updateProductList = function (product) {
             _this.products.push(product);

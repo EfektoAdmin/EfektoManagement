@@ -9,26 +9,38 @@ import { CategoryService } from './services/category-service';
 	templateUrl: 'app/templates/categoryedit.html',
 	providers: [CategoryService]
 })
-export class CategoryEditComponent implements OnInit{
-	@Input() category = {};	
+export class CategoryEditComponent implements OnInit {
+	@Input() category: Category;
 	@Input() public callBackFunction: Function;
 	@Input() public removeCategoryFromListFunction: Function;
 
 	mode = 'Observable';
-	constructor(private categoryService: CategoryService){}
+	constructor(private categoryService: CategoryService) { }
 
-	saving=false;
+	saving = false;
+	confirmFlag = false;
 	ngOnInit() { }
 
 	deleteCategory(category: Category) {
-		this.saving = true;
-		this.categoryService.deleteCategory(category)
-			.subscribe(
-			responseCategory => {
-				console.log("saved");
-				this.saving = false;
-				this.removeCategoryFromListFunction(category);
-			});
+
+		this.confirmFlag = true;
+	}
+
+	confirm(yesOrNo: string) {
+		if (yesOrNo == 'yes') {
+			this.saving = true;
+			this.categoryService.deleteCategory(this.category)
+				.subscribe(
+				responseCategory => {
+					console.log("saved");
+					this.saving = false;
+					this.removeCategoryFromListFunction(this.category);
+					this.confirmFlag = false;
+				});
+		}
+		else if (yesOrNo == 'no') {
+			this.confirmFlag = false;
+		}
 
 	}
 }

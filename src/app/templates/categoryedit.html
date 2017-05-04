@@ -3,14 +3,14 @@
 <div *ngIf='!saving'>
 
 	<div class="col-md-12 listItemContainer">
-		
+
 		<!-- Has image start -->
 		<div class="col-md-1" style="padding-left: 0;">
-			<img src='{{category.image}}' style='width: 100px; height: 100px;' *ngIf="category.image"/>
+			<img src='{{category.image}}' style='width: 100px; height: 100px;' *ngIf="category.image" />
 			<img src='app/images/noImage.png' *ngIf="!category.image" style='width: 100px; height: 100px;' />
 		</div>
 		<!-- Has image end -->
-		
+
 		<div class="col-md-2">
 			<p class="listItemHeading">{{category.name}}</p>
 			<p class="listItemSubHeading"><span class="label">Type:</span>{{category.categorytype}}</p>
@@ -20,19 +20,21 @@
 			<p *ngIf="category.parent" class="listItemSubHeading" style="margin-top: 40px;"><span class="label">Parent:</span> {{category.parent}}</p>
 			<p *ngIf="!category.parent" class="listItemSubHeading" style="margin-top: 40px;"><span class="label">Parent:</span> None</p>
 		</div>
-		
+
 		<!-- Has products start -->
 		<div class="col-md-1" *ngIf="category.hasproducts=='1'">
-			<p class="listItemSubHeading" style="margin-top: 40px;"><span class="label">Products:</span> Yes<p>
+			<p class="listItemSubHeading" style="margin-top: 40px;"><span class="label">Products:</span> Yes
+				<p>
 		</div>
 		<div class="col-md-1" *ngIf="category.hasproducts=='0'">
-			<p class="listItemSubHeading" style="margin-top: 40px;"><span class="label">Products:</span> No<p>
+			<p class="listItemSubHeading" style="margin-top: 40px;"><span class="label">Products:</span> No
+				<p>
 		</div>
 
-		<div class="listBtn"  (click)='deleteCategory(category)'>
+		<div class="listBtn" (click)='deleteCategory(category)'>
 			<i class="fa fa-trash" aria-hidden="true"></i>
-		</div>	
-		<div class="listBtn" >
+		</div>
+		<div class="listBtn">
 			<i class="fa fa-pencil" aria-hidden="true" (click)='callBackFunction(category)'></i>
 		</div>
 
@@ -49,12 +51,12 @@
 			<p>{{category.description}}</p>
 		</div>
 		-->
-	
-		
+
+
 
 	</div>
 
-	
+
 	<!--<input  [(ngModel)]='category.name' placeholder='name'/>
 	<input  [(ngModel)]='category.categorytype' placeholder='type'/>
 	<input  [(ngModel)]='category.parent' placeholder='parent'/>
@@ -67,4 +69,29 @@
 	<input  [(ngModel)]='category.description' placeholder='description'/>
 	<textarea [(ngModel)]='category.tags' rows='5'></textarea>
 	<button (click)='callBackFunction(category)'>Update</button>-->
+</div>
+
+<!-- Confirmation dialog -->
+<div *ngIf='confirmFlag' style="background-color:black;
+		opacity: 0.5;
+		width: 100%; 
+		height: 100%; 
+		position: fixed; 
+		top: 0px; 
+		left: 0px; 
+		z-index: 50" (click)='cancel()'>
+</div>
+<div *ngIf="confirmFlag" style="width:30%; height: 125px; 
+		position: absolute; 
+		top: 50px; 
+		margin-left:35%; 
+		margin-right:35%; 
+		background-color: white; 
+		z-index: 100;
+		border-radius: 5px;">
+	<div style="margin-left: 25%; margin-right: 25%; margin-top:25px; margin-bottom:25px;">Are you sure?</div>
+	<div style="margin-left: 25%; margin-right: 25%;">
+		<button class="btn btn-default" (click)='confirm("yes")'>Yes</button>
+		<button class="btn btn-default" (click)='confirm("no")'>No</button>
+	</div>
 </div>

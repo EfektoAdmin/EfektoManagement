@@ -104,10 +104,6 @@ var CategoryModalComponent = (function () {
                 message += "<b>Name</b> is required. ";
             if (category.categorytype == null || category.categorytype.trim() == "")
                 message += "<b>Category</b> Type is required. ";
-            // if (category.image == null || category.image.trim() == "")
-            //     message += "<b>Image Url</b> is required. ";
-            if (category.description == null || category.description.trim() == "")
-                message += "<b>Description</b> is required. ";
         }
         if (message == '')
             return true;

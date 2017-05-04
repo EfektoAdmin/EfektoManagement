@@ -65,6 +65,7 @@ export class ProductsComponent implements OnInit {
 
 	closeModal = () => {
 		this.showModal = false;
+		this.getProducts();
 	}
 
 	updateProductList = (product: Product) => {

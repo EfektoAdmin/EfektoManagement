@@ -210,8 +210,9 @@ export class ProductModalComponent implements OnInit {
             if (product.Description == null || product.Description.trim() == "")
                 message += "<b>Description</b> is required. ";
 
-            if (product.Category == null || product.Category.trim() == "")
-                message += "<b>Category</b> is required. ";
+            // removed as per demo/UAT
+            // if (product.Category == null || product.Category.trim() == "")
+            //     message += "<b>Category</b> is required. ";
 
             if (this.selectedCategory == null)
                 message += "<b>Category</b> is required. ";

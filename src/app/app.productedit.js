@@ -10,13 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var core_2 = require('@angular/core');
+var product_1 = require('./product');
 var product_service_1 = require('./services/product-service');
 var ProductEditComponent = (function () {
     function ProductEditComponent(productService) {
         this.productService = productService;
-        this.product = {};
         this.mode = 'Observable';
         this.saving = false;
+        this.confirmFlag = false;
     }
     ProductEditComponent.prototype.ngOnInit = function () { };
     ProductEditComponent.prototype.updateProduct = function (product) {
@@ -48,18 +49,27 @@ var ProductEditComponent = (function () {
         });
     };
     ProductEditComponent.prototype.deleteProduct = function (product) {
+        this.confirmFlag = true;
+    };
+    ProductEditComponent.prototype.confirm = function (yesOrNo) {
         var _this = this;
-        this.saving = true;
-        this.productService.deleteProduct(product)
-            .subscribe(function (reponseProduct) {
-            console.log("saved");
-            _this.saving = false;
-            _this.removeProductFromListFunction(product);
-        });
+        if (yesOrNo == 'yes') {
+            this.saving = true;
+            this.productService.deleteProduct(this.product)
+                .subscribe(function (reponseProduct) {
+                console.log("saved");
+                _this.saving = false;
+                _this.removeProductFromListFunction(_this.product);
+                _this.confirmFlag = false;
+            });
+        }
+        else if (yesOrNo == 'no') {
+            this.confirmFlag = false;
+        }
     };
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', product_1.Product)
     ], ProductEditComponent.prototype, "product", void 0);
     __decorate([
         core_1.Input(), 

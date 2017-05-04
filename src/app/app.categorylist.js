@@ -26,6 +26,7 @@ var CategoriesComponent = (function () {
         this.category = {};
         this.closeModal = function () {
             _this.showModal = false;
+            _this.getCategories();
         };
         this.updateCategoryList = function (category) {
             _this.categories.push(category);
