@@ -27,93 +27,100 @@
 			<label [innerHtml]="notificationMessage"></label>
 		</div>
 
-		<!-- Name -->
-		<div class="form-group row">
-			<label class="col-md-3 control-label">Name</label>
-			<div class="col-md-9">
-				<input class="form-control" [(ngModel)]='category.name' />
-			</div>
-		</div>
+		<div class="col-md-6">
 
-		<!-- Category type -->
-		<div class="form-group row">
-			<label class="col-md-3 control-label">Category Type</label>
-			<div class="col-md-9">
-				<select class="form-control" [(ngModel)]='category.categorytype'>
+			<!-- Name -->
+			<div class="form-group row">
+				<label class="col-md-3 control-label">Name</label>
+				<div class="col-md-9">
+					<input class="form-control" [(ngModel)]='category.name' />
+				</div>
+			</div>
+
+			<!-- Category type -->
+			<div class="form-group row">
+				<label class="col-md-3 control-label">Category Type</label>
+				<div class="col-md-9">
+					<select class="form-control" [(ngModel)]='category.categorytype'>
 					<option selected="selected">Select...</option> 
 					<option value='Products' >Products</option> 
 					<option value='Pests'>Pests</option> 
 				</select>
+				</div>
 			</div>
-		</div>
 
-		<!-- Parent category -->
-		<div class="form-group row">
-			<label class="col-md-3 control-label">Parent Category</label>
-			<div class="col-md-9">
-				<select class="form-control" [(ngModel)]='category.parent'>
+			<!-- Parent category -->
+			<div class="form-group row">
+				<label class="col-md-3 control-label">Parent Category</label>
+				<div class="col-md-9">
+					<select class="form-control" [(ngModel)]='category.parent'>
 					<option selected="selected">Select...</option> 
 					<option *ngFor="let categoryLookup of categories" [ngValue]="categoryLookup.id">{{categoryLookup.name}}</option> 					
 				</select>
+				</div>
 			</div>
-		</div>
 
-		<!-- Has products -->
-		<div class="form-group row">
-			<label class="col-md-3 control-label">Has Products</label>
-			<div class="col-md-9">
-				<select class="form-control" [(ngModel)]='category.hasproducts'>
+			<!-- Has products -->
+			<div class="form-group row">
+				<label class="col-md-3 control-label">Has Products</label>
+				<div class="col-md-9">
+					<select class="form-control" [(ngModel)]='category.hasproducts'>
 					<option value='1'>Yes</option> 
 					<option value='0'>No</option> 
 				</select>
-			</div>
-		</div>
-
-		<!-- Image url-->
-		<div class="form-group row">
-			<label class="col-md-3 control-label">Image URL</label>
-			<div class="col-md-9">
-				<input class="form-control" [(ngModel)]='category.image' />
-			</div>
-		</div>
-
-		<!-- Order -->
-		<div class="form-group row">
-			<label class="col-md-3 control-label">Order</label>
-			<div class="col-md-9">
-				<input class="form-control" [(ngModel)]='category.Order' />
-			</div>
-		</div>
-
-		<!-- Tags -->
-		<div class="form-group row">
-			<label class="col-md-2 control-label">Tags</label>
-			<div class="col-md-10">
-				<!--<textarea class="form-control" [(ngModel)]='product.tags' rows='3' placeholder='Tags'></textarea>-->
-				<input type="text" class="form-control" style="width: 40%; display: inline-block;" placeholder="Name" [(ngModel)]='tagItemName'
-				/>
-				<input type="text" class="form-control" style="width: 40%; display: inline-block;" placeholder="Value" [(ngModel)]='tagItemValue'
-				/>
-				<i class="fa fa-plus-square btnTagAdd" style="font-size: 1.7em;" (click)='addTagItem()'></i>
-
-				<div class="tagListContainer">
-					<div *ngFor="let tagLookup of tagArray" class="tagListItem">
-						{{tagLookup.name + ' : ' + tagLookup.value}}
-						<i class="fa fa-trash" (click)='removeTagItem(tagLookup)'></i>
-					</div>
 				</div>
-
 			</div>
-		</div>									
 
-		<!-- Description -->
-		<div class="form-group row">
-			<label class="col-md-3 control-label">Description</label>
-			<div class="col-md-9">
-				<input class="form-control" [(ngModel)]='category.description' />
+			<!-- Image url-->
+			<div class="form-group row">
+				<label class="col-md-3 control-label">Image URL</label>
+				<div class="col-md-9">
+					<input class="form-control" [(ngModel)]='category.image' />
+				</div>
 			</div>
+
 		</div>
 
+		<div class="col-md-6">
+
+			<!-- Order -->
+			<div class="form-group row">
+				<label class="col-md-3 control-label">Order</label>
+				<div class="col-md-9">
+					<input class="form-control" [(ngModel)]='category.Order' />
+				</div>
+			</div>
+
+			<!-- Description -->
+			<div class="form-group row">
+				<label class="col-md-3 control-label">Description</label>
+				<div class="col-md-9">
+					<input class="form-control" [(ngModel)]='category.description' />
+				</div>
+			</div>
+
+			<!-- Tags -->
+			<div class="form-group row">
+				<label class="col-md-2 control-label">Tags</label>
+				<div class="col-md-10">
+					<!--<textarea class="form-control" [(ngModel)]='product.tags' rows='3' placeholder='Tags'></textarea>-->
+					<input type="text" class="form-control" style="width: 40%; display: inline-block;" placeholder="Name" [(ngModel)]='tagItemName'
+					/>
+					<input type="text" class="form-control" style="width: 40%; display: inline-block;" placeholder="Value" [(ngModel)]='tagItemValue'
+					/>
+					<i class="fa fa-plus-square btnTagAdd" style="font-size: 1.7em;" (click)='addTagItem()'></i>
+
+					<div class="tagListContainer">
+						<div *ngFor="let tagLookup of tagArray" class="tagListItem">
+							{{tagLookup.name + ' : ' + tagLookup.value}}
+							<i class="fa fa-trash" (click)='removeTagItem(tagLookup)'></i>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
 	</div>
 	<div class="modalFooter">
 		<button class="btnSave" (click)='saveCategory(category)'>Save</button>
