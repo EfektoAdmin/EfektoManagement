@@ -11,10 +11,14 @@ import { Tag } from './tags';
     providers: [CategoryService],
 })
 export class CategoryModalComponent implements OnInit {
-    @Input() category = {};
+    @Input() category: Category;
     @Input() public updateCategoryListFunction: Function;
     @Input() public closeModalFunction: Function;
     @Input() addCategory;
+
+    tagArray: Tag[];
+    tagItemName: string;
+    tagItemValue: string;
 
     confirmFlag = false;
     confirmProcess: string = "";
@@ -41,6 +45,13 @@ export class CategoryModalComponent implements OnInit {
     ngOnInit() {
         this.editCategory = !this.addCategory;
         this.getCategories();
+
+        if (this.category.tags == null || this.category.tags.trim() == '') {
+            this.tagArray = new Array();
+            return;
+        }
+
+        this.tagArray = Category.getTagsObjectArray(this.category.tags);
     }
 
     getCategories() {
@@ -52,6 +63,43 @@ export class CategoryModalComponent implements OnInit {
     cancel() {
         this.confirmFlag = true;
         this.confirmProcess = 'cancel';
+    }
+
+    removeTagItem(tagItem: Tag) {
+        this.tagArray = this.tagArray.filter(item => item.name !== tagItem.name);
+    }
+    addTagItem() {
+
+        if (this.tagItemName == null || this.tagItemName.trim() == '') {
+            this.openNotification("The tag <b>name</b> is required.");
+            return;
+        }
+
+        if (this.tagItemValue == null || this.tagItemValue.trim() == '') {
+            this.openNotification("The tag <b>value</b> is required.");
+            return;
+        }
+
+        let isUsedTagname = false;
+        this.tagArray.forEach(element => {
+            if (element.name == this.tagItemName) {
+                this.openNotification("The tag <b>name</b> has already been used.");
+                isUsedTagname = true;
+                return;
+            }
+        });
+
+        if (isUsedTagname)
+            return;
+
+        let tempTag = new Tag();
+        tempTag.name = this.tagItemName;
+        tempTag.value = this.tagItemValue;
+
+        this.tagArray.push(tempTag);
+
+        this.tagItemName = '';
+        this.tagItemValue = '';
     }
 
     confirm(yesOrNo: string, category: Category) {
@@ -78,10 +126,12 @@ export class CategoryModalComponent implements OnInit {
     }
 
     saveCategory(category: Category) {
+        if (this.tagArray != null)
+            category.tags = JSON.stringify(this.tagArray);
 
         if (!this.validate(category))
             return;
-            
+
         // if (category == null || category.name == null || category.name.trim() == "" ||
         //     category.categorytype == null || category.categorytype.trim() == "") {
         //     this.saving = false;
@@ -103,6 +153,7 @@ export class CategoryModalComponent implements OnInit {
                     this.updateCategoryListFunction(category);
                     console.log("saved");
                     this.saving = false;
+                    this.closeModalFunction();
                 });
         }
         else {
@@ -111,10 +162,11 @@ export class CategoryModalComponent implements OnInit {
                 category => {
                     console.log("saved");
                     this.saving = false;
+                    this.closeModalFunction();
                 });
         }
 
-        this.closeModalFunction();
+
     }
 
     validate(category: Category) {
@@ -130,6 +182,9 @@ export class CategoryModalComponent implements OnInit {
 
             if (category.categorytype == null || category.categorytype.trim() == "")
                 message += "<b>Category</b> Type is required. ";
+
+            if (category.parent != null && category.parent == category.id)
+                message += "<b>Category</b> cannot be parent to itself. ";
 
             // if (category.image == null || category.image.trim() == "")
             //     message += "<b>Image Url</b> is required. ";

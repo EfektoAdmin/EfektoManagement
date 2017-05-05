@@ -11,11 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var core_2 = require('@angular/core');
 var core_3 = require('@angular/core');
+var category_1 = require('./category');
 var category_service_1 = require('./services/category-service');
+var tags_1 = require('./tags');
 var CategoryModalComponent = (function () {
     function CategoryModalComponent(categoryService) {
         this.categoryService = categoryService;
-        this.category = {};
         this.confirmFlag = false;
         this.confirmProcess = "";
         this.showNotification = false;
@@ -29,6 +30,11 @@ var CategoryModalComponent = (function () {
     CategoryModalComponent.prototype.ngOnInit = function () {
         this.editCategory = !this.addCategory;
         this.getCategories();
+        if (this.category.tags == null || this.category.tags.trim() == '') {
+            this.tagArray = new Array();
+            return;
+        }
+        this.tagArray = category_1.Category.getTagsObjectArray(this.category.tags);
     };
     CategoryModalComponent.prototype.getCategories = function () {
         var _this = this;
@@ -38,6 +44,36 @@ var CategoryModalComponent = (function () {
     CategoryModalComponent.prototype.cancel = function () {
         this.confirmFlag = true;
         this.confirmProcess = 'cancel';
+    };
+    CategoryModalComponent.prototype.removeTagItem = function (tagItem) {
+        this.tagArray = this.tagArray.filter(function (item) { return item.name !== tagItem.name; });
+    };
+    CategoryModalComponent.prototype.addTagItem = function () {
+        var _this = this;
+        if (this.tagItemName == null || this.tagItemName.trim() == '') {
+            this.openNotification("The tag <b>name</b> is required.");
+            return;
+        }
+        if (this.tagItemValue == null || this.tagItemValue.trim() == '') {
+            this.openNotification("The tag <b>value</b> is required.");
+            return;
+        }
+        var isUsedTagname = false;
+        this.tagArray.forEach(function (element) {
+            if (element.name == _this.tagItemName) {
+                _this.openNotification("The tag <b>name</b> has already been used.");
+                isUsedTagname = true;
+                return;
+            }
+        });
+        if (isUsedTagname)
+            return;
+        var tempTag = new tags_1.Tag();
+        tempTag.name = this.tagItemName;
+        tempTag.value = this.tagItemValue;
+        this.tagArray.push(tempTag);
+        this.tagItemName = '';
+        this.tagItemValue = '';
     };
     CategoryModalComponent.prototype.confirm = function (yesOrNo, category) {
         if (yesOrNo == 'yes') {
@@ -62,6 +98,8 @@ var CategoryModalComponent = (function () {
     };
     CategoryModalComponent.prototype.saveCategory = function (category) {
         var _this = this;
+        if (this.tagArray != null)
+            category.tags = JSON.stringify(this.tagArray);
         if (!this.validate(category))
             return;
         // if (category == null || category.name == null || category.name.trim() == "" ||
@@ -82,6 +120,7 @@ var CategoryModalComponent = (function () {
                 _this.updateCategoryListFunction(category);
                 console.log("saved");
                 _this.saving = false;
+                _this.closeModalFunction();
             });
         }
         else {
@@ -89,9 +128,9 @@ var CategoryModalComponent = (function () {
                 .subscribe(function (category) {
                 console.log("saved");
                 _this.saving = false;
+                _this.closeModalFunction();
             });
         }
-        this.closeModalFunction();
     };
     CategoryModalComponent.prototype.validate = function (category) {
         this.showNotification = false;
@@ -104,6 +143,8 @@ var CategoryModalComponent = (function () {
                 message += "<b>Name</b> is required. ";
             if (category.categorytype == null || category.categorytype.trim() == "")
                 message += "<b>Category</b> Type is required. ";
+            if (category.parent != null && category.parent == category.id)
+                message += "<b>Category</b> cannot be parent to itself. ";
         }
         if (message == '')
             return true;
@@ -121,7 +162,7 @@ var CategoryModalComponent = (function () {
     };
     __decorate([
         core_2.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', category_1.Category)
     ], CategoryModalComponent.prototype, "category", void 0);
     __decorate([
         core_2.Input(), 

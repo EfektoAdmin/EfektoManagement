@@ -43,7 +43,17 @@ var CategoriesComponent = (function () {
     CategoriesComponent.prototype.getCategories = function () {
         var _this = this;
         this.categoryService.getCategories()
-            .subscribe(function (categories) { return _this.categories = categories; });
+            .subscribe(function (categories) {
+            _this.categories = categories;
+            _this.categories.forEach(function (element) {
+                if (element.parent != null && element.parent.trim() != '') {
+                    var tempCategories = _this.categories.filter(function (a) { return a.id == element.parent; });
+                    if (tempCategories != null && tempCategories.length > 0) {
+                        element.ParentCategoryName = tempCategories[0].name;
+                    }
+                }
+            });
+        });
     };
     CategoriesComponent.prototype.showCategoryModal = function (addOrEdit) {
         this.showModal = true;

@@ -30,7 +30,18 @@ export class CategoriesComponent implements OnInit {
 	getCategories() {
 		this.categoryService.getCategories()
 			.subscribe(
-			categories => this.categories = categories);
+			categories => {
+				this.categories = categories
+
+				this.categories.forEach(element => {
+					if (element.parent != null && element.parent.trim() != '') {
+						let tempCategories = this.categories.filter(a => a.id == element.parent);
+						if (tempCategories != null && tempCategories.length > 0) {
+							element.ParentCategoryName = tempCategories[0].name;
+						}
+					}
+				})
+			});
 	}
 
 	showCategoryModal(addOrEdit) {

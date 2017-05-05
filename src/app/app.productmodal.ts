@@ -216,7 +216,7 @@ export class ProductModalComponent implements OnInit {
 
             if (this.selectedCategory == null)
                 message += "<b>Category</b> is required. ";
-                
+
             /*
             if (product.Image == null || product.Image.trim() == "")
                 message += "Image is required.";
