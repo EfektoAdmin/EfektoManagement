@@ -94,7 +94,7 @@ var CategoryModalComponent = (function () {
         else if (yesOrNo == 'no') {
             this.saving = false;
         }
-        this.confirmFlag = false;
+        //this.confirmFlag = false;
     };
     CategoryModalComponent.prototype.saveCategory = function (category) {
         var _this = this;
@@ -121,6 +121,7 @@ var CategoryModalComponent = (function () {
                 console.log("saved");
                 _this.saving = false;
                 _this.closeModalFunction();
+                _this.confirmFlag = false;
             });
         }
         else {
@@ -129,6 +130,7 @@ var CategoryModalComponent = (function () {
                 console.log("saved");
                 _this.saving = false;
                 _this.closeModalFunction();
+                _this.confirmFlag = false;
             });
         }
     };

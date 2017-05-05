@@ -142,7 +142,7 @@ export class ProductModalComponent implements OnInit {
             this.saving = false;
         }
 
-        this.confirmFlag = false;
+        //this.confirmFlag = false;
     }
 
     saveProduct(product: Product) {
@@ -179,6 +179,7 @@ export class ProductModalComponent implements OnInit {
                     this.saving = false;
                     this.selectedCategory = new Category();
                     this.closeModalFunction();
+                    this.confirmFlag = false;
                 });
         }
         else {
@@ -188,6 +189,7 @@ export class ProductModalComponent implements OnInit {
                     console.log("saved");
                     this.saving = false;
                     this.closeModalFunction();
+                    this.confirmFlag = false;
                 });
         }
 

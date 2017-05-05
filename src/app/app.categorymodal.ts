@@ -122,7 +122,7 @@ export class CategoryModalComponent implements OnInit {
             this.saving = false;
         }
 
-        this.confirmFlag = false;
+        //this.confirmFlag = false;
     }
 
     saveCategory(category: Category) {
@@ -154,6 +154,7 @@ export class CategoryModalComponent implements OnInit {
                     console.log("saved");
                     this.saving = false;
                     this.closeModalFunction();
+                    this.confirmFlag = false;
                 });
         }
         else {
@@ -163,6 +164,7 @@ export class CategoryModalComponent implements OnInit {
                     console.log("saved");
                     this.saving = false;
                     this.closeModalFunction();
+                    this.confirmFlag = false;
                 });
         }
 

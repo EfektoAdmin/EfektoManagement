@@ -109,7 +109,7 @@ var ProductModalComponent = (function () {
         else if (yesOrNo == 'no') {
             this.saving = false;
         }
-        this.confirmFlag = false;
+        //this.confirmFlag = false;
     };
     ProductModalComponent.prototype.saveProduct = function (product) {
         var _this = this;
@@ -139,6 +139,7 @@ var ProductModalComponent = (function () {
                 _this.saving = false;
                 _this.selectedCategory = new category_1.Category();
                 _this.closeModalFunction();
+                _this.confirmFlag = false;
             });
         }
         else {
@@ -147,6 +148,7 @@ var ProductModalComponent = (function () {
                 console.log("saved");
                 _this.saving = false;
                 _this.closeModalFunction();
+                _this.confirmFlag = false;
             });
         }
     };
